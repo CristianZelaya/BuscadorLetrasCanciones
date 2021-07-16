@@ -18,12 +18,29 @@ export class API {
         
         fetch( url )
             .then( response => response.json())
-            .then( resultado => {
+            .then( resultado => {                
+                
                 const json = JSON.parse(resultado.contents);
-                const { lyrics_body } = json.message.body.lyrics;
+                
+                if ( json.message.body.lyrics ){
+                    
+                    const { lyrics_body } = json.message.body.lyrics;
+                    UI.divResultado.innerHTML = lyrics_body;
+                    UI.headingResultado.innerHTML = `Letra de la canción ${this.cancion} de ${this.artista}`;
 
-                UI.divResultado.innerHTML = lyrics_body;
-                UI.headingResultado.innerHTML = `Letra de la canción ${this.cancion} de ${this.artista}`;
+                } else {
+
+                    UI.divMensajes.innerHTML = `La canción no existe, prueba con otra búsqueda`;
+                    UI.divMensajes.classList.add('error');
+
+                    setTimeout(() => {
+
+                        UI.divMensajes.innerHTML = '';
+                        UI.divMensajes.classList.remove('error');
+                        
+                    }, 3000);
+
+                }
 
             })
             .catch((error) => console.log(error));

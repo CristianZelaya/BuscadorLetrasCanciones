@@ -15,6 +15,8 @@ function buscarCancion( e ) {
 
         UI.divMensajes.innerHTML = 'Error... Todos los campos son obligatorios.';
         UI.divMensajes.classList.add('error');
+        UI.divResultado.innerHTML = '';
+        UI.headingResultado.innerHTML = '';
 
         setTimeout(() => {
 
